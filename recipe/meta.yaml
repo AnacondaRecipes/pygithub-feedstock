@@ -30,7 +30,8 @@ requirements:
 test:
   requires:
     - pip
-    - cryptography 
+    - cryptography >=3.2
+    - httpretty >=1.0.3
   imports:
     - github
   commands:
