@@ -17,12 +17,12 @@ build:
 
 requirements:
   host:
-    - python >=3.6
+    - python
     - pip
 
   run:
-    - python >=3.6
-    - pyjwt >=2.0
+    - python
+    - pyjwt <2.0
     - pynacl >=1.4.0
     - requests >=2.14.0,<2.25
     - deprecated
@@ -30,7 +30,7 @@ requirements:
 test:
   requires:
     - pip
-    - cryptography >=3.2
+    - cryptography 
   imports:
     - github
   commands:
