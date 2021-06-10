@@ -17,20 +17,21 @@ build:
 
 requirements:
   host:
-    - python
+    - python >=3.6
     - pip
 
   run:
-    - python >=3
-    - pyjwt <2.0
-    - requests >=2.14.0,<2.25
+    - python >=3.6
+    - pyjwt >=2.0
+    - pynacl >=1.4.0
+    - requests >=2.14.0
     - deprecated
 
 test:
-  requires:
-    - pip
   imports:
     - github
+  requires:
+    - pip
   commands:
     - pip check
 
@@ -40,7 +41,7 @@ about:
   license: LGPL-3.0-only
   license_family: LGPL
   summary: Python library implementing the GitHub API v3
-  doc_url: http://pygithub.github.io/PyGithub
+  doc_url: https://pygithub.readthedocs.io/en/latest/
   dev_url: https://github.com/PyGithub/PyGithub
 
 extra:
