@@ -1,5 +1,5 @@
 {% set name = "PyGithub" %}
-{% set version = "1.55" %}
+{% set version = "2.4.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,24 +7,30 @@ package:
 
 source:
   fn: {{ name }}-{{ version }}.tar.gz
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 1bbfff9372047ff3f21d5cd8e07720f3dbfdaf6462fcaed9d815f528f1ba7283
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name|lower }}-{{ version }}.tar.gz
+  sha256: 6601e22627e87bac192f1e2e39c6e6f69a43152cfb8f307cee575879320b3051
 
 build:
-  noarch: python
-  number: 1
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  number: 0
+  skip: True  # [py<38]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   host:
-    - python >=3.6
+    - python
     - pip
-
+    - wheel
+    - setuptools
+    - setuptools-scm
   run:
-    - python >=3.6
-    - pyjwt >=2.0
+    - python
+    # pyjwt[crypto] is pyjwt + cryptography
+    - pyjwt >=2.4.0
+    - cryptography
     - pynacl >=1.4.0
     - requests >=2.14.0
+    - typing-extensions >=4.0.0
+    - urllib3 >=1.26.0
     - deprecated
 
 test:
@@ -32,16 +38,25 @@ test:
     - github
   requires:
     - pip
+    - httpretty >=1.0.3
+    - pytest >=5.3
+  source_files:
+    - pyproject.toml
+    - tests
   commands:
     - pip check
+    - pytest -v tests
 
 about:
-  home: http://pygithub.github.io/PyGithub
+  home: https://github.com/PyGithub/PyGithub
   license_file: COPYING.LESSER
   license: LGPL-3.0-only
   license_family: LGPL
   summary: Python library implementing the GitHub API v3
-  doc_url: https://pygithub.readthedocs.io/en/latest/
+  description: |
+    PyGitHub is a Python library to access the GitHub REST API. This library enables you to manage GitHub resources
+    such as repositories, user profiles, and organizations in your Python applications.
+  doc_url: https://pygithub.readthedocs.io
   dev_url: https://github.com/PyGithub/PyGithub
 
 extra:
