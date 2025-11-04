@@ -6,7 +6,6 @@ package:
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name|lower }}-{{ version }}.tar.gz
   sha256: 341b7c78521cb07324ff670afd1baa2bf5c286f8d9fd302c1798ba594a5400c9
 
@@ -17,32 +16,31 @@ build:
 
 requirements:
   host:
-    - python
     - pip
+    - python
     - setuptools >=64
-    - setuptools-scm >=7
+    - setuptools_scm >=7
   run:
     - python
     # pyjwt[crypto] is pyjwt + cryptography
-    - pyjwt >=2.4.0
     - cryptography
+    - pyjwt >=2.4.0
     - pynacl >=1.4.0
-    - requests >=2.14.0
-    - typing-extensions >=4.0.0
     - urllib3 >=1.26.0
-    - deprecated
+    - requests >=2.14.0
     - typing_extensions >=4.5.0
 
 test:
+  source_files:
+    - tests
+    - pyproject.toml
   imports:
     - github
   requires:
     - pip
-    - httpretty >=1.0.3
     - pytest >=5.3
-  source_files:
-    - pyproject.toml
-    - tests
+    - httpretty >=1.0.3
+    - responses
   commands:
     - pip check
     - pytest -v tests
