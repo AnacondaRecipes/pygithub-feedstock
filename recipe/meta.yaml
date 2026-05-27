@@ -1,5 +1,5 @@
 {% set name = "PyGithub" %}
-{% set version = "2.8.1" %}
+{% set version = "2.9.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +7,11 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name|lower }}-{{ version }}.tar.gz
-  sha256: 341b7c78521cb07324ff670afd1baa2bf5c286f8d9fd302c1798ba594a5400c9
+  sha256: 59771d7ff63d54d427be2e7d0dad2208dfffc2b0a045fec959263787739b611c
 
 build:
   number: 0
-  skip: true  # [py<38]
+  skip: true  # [py<39]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
@@ -39,7 +39,6 @@ test:
   requires:
     - pip
     - pytest >=5.3
-    - httpretty >=1.0.3
     - responses
   commands:
     - pip check
